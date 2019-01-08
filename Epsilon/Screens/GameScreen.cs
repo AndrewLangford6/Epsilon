@@ -29,9 +29,11 @@ namespace Epsilon
 
         //TODO create your global game variables here
         int heroX, heroY, heroSize, heroSpeed,gravity,ground1Y, ground1X, groundEnd1;
+        int i = 0;
         SolidBrush heroBrush = new SolidBrush(Color.Black);
+        SolidBrush groundBrush = new SolidBrush(Color.Brown);
 
-       
+
 
         public GameScreen()
         {
@@ -53,18 +55,6 @@ namespace Epsilon
             ground1Y = 200;
             ground1X = 0;
             groundEnd1 = 325;
-
-            
-
-
-
-
-
-
-
-
-
-
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -145,6 +135,9 @@ namespace Epsilon
         /// </summary>
         private void gameTimer_Tick(object sender, EventArgs e)
         {
+            
+            Graphics g = this.CreateGraphics();
+            
             //TODO move main character 
             if (leftArrowDown == true)
             {
@@ -152,7 +145,7 @@ namespace Epsilon
             }
             if (downArrowDown == true)
             {
-                
+
             }
             if (rightArrowDown == true)
             {
@@ -166,9 +159,19 @@ namespace Epsilon
             heroY = heroY + gravity;
             //TODO move npc characters
 
+            List<Rectangle> groundRec = new List<Rectangle>();
+            groundRec.Add(new Rectangle(ground1X, ground1Y, groundEnd1, ground1Y));
+
+            for (int i = 0; i < groundRec.Count(); i++)
+            {
+                
+            }
+
+
+           
+
 
             //TODO collisions checks 
-            Graphics g = this.CreateGraphics();
             
 
 
@@ -198,14 +201,27 @@ namespace Epsilon
         //Everything that is to be drawn on the screen should be done here
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            SolidBrush groundBrush = new SolidBrush(Color.Brown);
+            
             //draw rectangle to screen
 
             Rectangle heroRec = new Rectangle(heroX, heroY, heroSize, heroSize);
             Rectangle groundRec = new Rectangle(ground1X, ground1Y, groundEnd1, ground1Y);
 
+            if (downArrowDown == true)
+            {
+                e.Graphics.DrawImage(Properties.Resources.crouch_R, heroRec);
+            }
+            else if (upArrowDown == true)
+            {
+                e.Graphics.DrawImage(Properties.Resources.jump_R, heroRec);
+            }
+            else
+            {
+                e.Graphics.DrawImage(Properties.Resources.base_R, heroRec);
 
-            e.Graphics.DrawImage(Properties.Resources.base_R, heroRec);
+            }
+
+            
             
             e.Graphics.DrawImage(Properties.Resources.Turtle_Selfie, groundRec);
 
