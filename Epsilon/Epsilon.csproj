@@ -161,25 +161,13 @@
     <None Include="Resources\Turtle Selfie.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\base L.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\base R.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\crouch L.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\crouch R.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\jump L.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\jump R.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\walk L.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\walk R.png" />
@@ -210,6 +198,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\FLOOR-EPSILON.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cave floor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\FLOOR.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\base L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\crouch L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\jump L.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\walk L.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -20,7 +20,7 @@ namespace Epsilon
         //player2 button control keys - DO NOT CHANGE
         Boolean aDown, sDown, dDown, wDown, cDown, vDown, xDown, zDown;
 
-       
+
 
         private void GameScreen_Load(object sender, EventArgs e)
         {
@@ -28,8 +28,13 @@ namespace Epsilon
         }
 
         //TODO create your global game variables here
-        int heroX, heroY, heroSize, heroSpeed,gravity,ground1Y, ground1X, groundEnd1;
+        int heroX, heroY, heroSize, heroSpeed, gravity, ground1Y, ground1X, groundEnd1;
         int i = 0;
+        int walkCounterR = 0;
+        int walkCounterL = 0;
+        int jumpSpeed;
+        bool facingR = true;
+        bool jumping = false;
         SolidBrush heroBrush = new SolidBrush(Color.Black);
         SolidBrush groundBrush = new SolidBrush(Color.Brown);
 
@@ -47,11 +52,12 @@ namespace Epsilon
             // each time you restart your game to reset all values. 
 
             heroSize = 32;
-            heroX = this.Width/2 - (heroSize/2);
+            heroX = this.Width / 2 - (heroSize / 2);
             heroY = this.Height / 2 - (heroSize / 2); ;
-           
             heroSpeed = 10;
-            gravity = 6;
+
+
+            gravity = 8;
             ground1Y = 200;
             ground1X = 0;
             groundEnd1 = 325;
@@ -94,6 +100,10 @@ namespace Epsilon
                     rightArrowDown = true;
                     break;
                 case Keys.Up:
+                    if (!jumping)
+                    {
+                        jumping = true;
+                    }
                     upArrowDown = true;
                     break;
                 case Keys.Space:
@@ -124,7 +134,12 @@ namespace Epsilon
                     break;
                 case Keys.Up:
                     upArrowDown = false;
+                    if (jumping)
+                    {
+                        jumping = false;
+                    }
                     break;
+
             }
         }
 
@@ -135,13 +150,25 @@ namespace Epsilon
         /// </summary>
         private void gameTimer_Tick(object sender, EventArgs e)
         {
-            
+            walkCounterL++;
+            walkCounterR++;
             Graphics g = this.CreateGraphics();
-            
+
             //TODO move main character 
+            if (heroY > this.Height)
+            {
+                MainForm.ChangeScreen(this, "MenuScreen");
+                gameTimer.Enabled = false;
+                rightArrowDown = leftArrowDown = upArrowDown = downArrowDown = false;
+            }
+            if (jumping && gravity < 0)
+            {
+                jumping = false;
+            }
             if (leftArrowDown == true)
             {
                 ground1X = ground1X + heroSpeed;
+                facingR = false;
             }
             if (downArrowDown == true)
             {
@@ -150,13 +177,23 @@ namespace Epsilon
             if (rightArrowDown == true)
             {
                 ground1X = ground1X - heroSpeed;
+                facingR = true;
             }
             if (upArrowDown == true)
             {
-                heroY = heroY - heroSpeed;
+              
             }
-            
-            heroY = heroY + gravity;
+            if (jumping)
+            {
+                jumpSpeed = -10;
+                gravity -= 1;
+            }
+            else
+            {
+                jumpSpeed = 10;
+            }
+            heroY = heroY + jumpSpeed;
+
             //TODO move npc characters
 
             List<Rectangle> groundRec = new List<Rectangle>();
@@ -164,33 +201,41 @@ namespace Epsilon
 
             for (int i = 0; i < groundRec.Count(); i++)
             {
-                
+
             }
 
 
-           
+
 
 
             //TODO collisions checks 
-            
 
 
-          
+
+
             if (heroX > ground1X - heroSize && heroX < ground1X + groundEnd1)
             {
                 if (heroY > ground1Y - heroSize)
                 {
                     heroY = ground1Y - heroSize;
                 }
-                if (heroY > ground1Y)
+                if (heroY == ground1Y - heroSize && !jumping)
                 {
-                    heroY = heroY + gravity;
+                    gravity = 8;
+                    
                 }
                 
+                    if (heroY > ground1Y)
+                {
+                    
+                    heroY = heroY + gravity;
                 }
-            if (heroX > ground1X - heroSize && heroX < ground1X + groundEnd1 && heroY > ground1Y)
-            {
 
+            }
+
+            else if (heroX > ground1X - heroSize && heroX < ground1X + groundEnd1 && heroY > ground1Y)
+            {
+                heroY = heroY + gravity;
             }
 
             //calls the GameScreen_Paint method to draw the screen.
@@ -201,29 +246,85 @@ namespace Epsilon
         //Everything that is to be drawn on the screen should be done here
         private void GameScreen_Paint(object sender, PaintEventArgs e)
         {
-            
+
             //draw rectangle to screen
 
             Rectangle heroRec = new Rectangle(heroX, heroY, heroSize, heroSize);
             Rectangle groundRec = new Rectangle(ground1X, ground1Y, groundEnd1, ground1Y);
-
-            if (downArrowDown == true)
+            if (facingR == true)
             {
-                e.Graphics.DrawImage(Properties.Resources.crouch_R, heroRec);
-            }
-            else if (upArrowDown == true)
-            {
-                e.Graphics.DrawImage(Properties.Resources.jump_R, heroRec);
-            }
-            else
-            {
-                e.Graphics.DrawImage(Properties.Resources.base_R, heroRec);
+                if (downArrowDown == true)
+                {
+                    e.Graphics.DrawImage(Properties.Resources.crouch_R, heroRec);
+                }
+                else if (upArrowDown == true)
+                {
+                    e.Graphics.DrawImage(Properties.Resources.jump_R, heroRec);
+                }
+                else
+                {
+                    if (rightArrowDown == true)
+                    {
 
+
+                        if (walkCounterR > 5)
+                        {
+                            e.Graphics.DrawImage(Properties.Resources.base_R, heroRec);
+                        }
+                        else
+                        {
+                            e.Graphics.DrawImage(Properties.Resources.walk_R, heroRec);
+                        }
+                        if (walkCounterR > 10)
+                        {
+                            walkCounterR = 0;
+                        }
+                    }
+                    else
+                    {
+                        e.Graphics.DrawImage(Properties.Resources.base_R, heroRec);
+                    }
+                }
             }
 
-            
-            
-            e.Graphics.DrawImage(Properties.Resources.Turtle_Selfie, groundRec);
+            else if (facingR == false)
+            {
+                if (downArrowDown == true)
+                {
+                    e.Graphics.DrawImage(Properties.Resources.crouch_L1, heroRec);
+                }
+                else if (upArrowDown == true)
+                {
+                    e.Graphics.DrawImage(Properties.Resources.jump_L1, heroRec);
+                }
+                else
+                {
+                    if (leftArrowDown == true)
+                    {
+
+
+                        if (walkCounterL > 5)
+                        {
+                            e.Graphics.DrawImage(Properties.Resources.base_L1, heroRec);
+                        }
+                        else
+                        {
+                            e.Graphics.DrawImage(Properties.Resources.walk_L1, heroRec);
+                        }
+                        if (walkCounterL > 10)
+                        {
+                            walkCounterL = 0;
+                        }
+                    }
+                    else
+                    {
+                        e.Graphics.DrawImage(Properties.Resources.base_L1, heroRec);
+                    }
+
+                }
+            }
+
+            e.Graphics.DrawImage(Properties.Resources.FLOOR, ground1X, ground1Y - 10, groundEnd1, ground1Y);
 
 
         }

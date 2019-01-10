@@ -73,6 +73,16 @@ namespace Epsilon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap base_L1 {
+            get {
+                object obj = ResourceManager.GetObject("base_L1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap base_R {
             get {
                 object obj = ResourceManager.GetObject("base_R", resourceCulture);
@@ -113,6 +123,16 @@ namespace Epsilon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cave_floor {
+            get {
+                object obj = ResourceManager.GetObject("cave_floor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap crouch_L {
             get {
                 object obj = ResourceManager.GetObject("crouch_L", resourceCulture);
@@ -123,9 +143,29 @@ namespace Epsilon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap crouch_L1 {
+            get {
+                object obj = ResourceManager.GetObject("crouch_L1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap crouch_R {
             get {
                 object obj = ResourceManager.GetObject("crouch_R", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap FLOOR {
+            get {
+                object obj = ResourceManager.GetObject("FLOOR", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -173,6 +213,16 @@ namespace Epsilon.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap jump_L1 {
+            get {
+                object obj = ResourceManager.GetObject("jump_L1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap jump_R {
             get {
                 object obj = ResourceManager.GetObject("jump_R", resourceCulture);
@@ -206,6 +256,16 @@ namespace Epsilon.Properties {
         internal static System.Drawing.Bitmap walk_L {
             get {
                 object obj = ResourceManager.GetObject("walk_L", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap walk_L1 {
+            get {
+                object obj = ResourceManager.GetObject("walk_L1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
