@@ -100,7 +100,7 @@ namespace Epsilon
                     rightArrowDown = true;
                     break;
                 case Keys.Up:
-                    if (!jumping)
+                    if (!jumping && heroY == ground1Y - heroSize)
                     {
                         jumping = true;
                     }
@@ -157,6 +157,7 @@ namespace Epsilon
             //TODO move main character 
             if (heroY > this.Height)
             {
+                Thread.Sleep(1000);
                 MainForm.ChangeScreen(this, "MenuScreen");
                 gameTimer.Enabled = false;
                 rightArrowDown = leftArrowDown = upArrowDown = downArrowDown = false;
