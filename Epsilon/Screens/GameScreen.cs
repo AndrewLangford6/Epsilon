@@ -162,6 +162,10 @@ namespace Epsilon
                 gameTimer.Enabled = false;
                 rightArrowDown = leftArrowDown = upArrowDown = downArrowDown = false;
             }
+            if (gravity < 4)
+            {
+                gravity = gravity - (1 / 2);
+            }
             if (jumping && gravity < 0)
             {
                 jumping = false;
@@ -186,12 +190,12 @@ namespace Epsilon
             }
             if (jumping)
             {
-                jumpSpeed = -10;
-                gravity -= 1;
+                jumpSpeed = -8;
+                gravity--;
             }
             else
             {
-                jumpSpeed = 10;
+                jumpSpeed = 8;
             }
             heroY = heroY + jumpSpeed;
 
@@ -213,30 +217,32 @@ namespace Epsilon
 
 
 
-
+            
             if (heroX > ground1X - heroSize && heroX < ground1X + groundEnd1)
             {
-                if (heroY > ground1Y - heroSize)
+                if (heroY > ground1Y && heroX > ground1X - heroSize && heroX < ground1X + groundEnd1 && facingR == true)
+                {
+                    heroX = ground1X - heroSize;
+                    heroY = heroY + jumpSpeed;
+                    rightArrowDown = false;
+                }
+                else if (heroY > ground1Y && heroX > ground1X - heroSize && heroX < ground1X + groundEnd1 && facingR == false)
+                {
+                    heroX = ground1X + groundEnd1;
+                    heroY = heroY + jumpSpeed;
+                    leftArrowDown = false;
+                }
+                else if (heroY > ground1Y - heroSize)
                 {
                     heroY = ground1Y - heroSize;
                 }
+               
                 if (heroY == ground1Y - heroSize && !jumping)
                 {
                     gravity = 8;
-                    
                 }
-                
-                    if (heroY > ground1Y)
-                {
-                    
-                    heroY = heroY + gravity;
-                }
+                   
 
-            }
-
-            else if (heroX > ground1X - heroSize && heroX < ground1X + groundEnd1 && heroY > ground1Y)
-            {
-                heroY = heroY + gravity;
             }
 
             //calls the GameScreen_Paint method to draw the screen.
