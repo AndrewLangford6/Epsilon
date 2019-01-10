@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using GameSystemServices;
 using System.Threading;
+using System.Media;
 
 namespace Epsilon
 {
@@ -38,12 +39,18 @@ namespace Epsilon
         SolidBrush heroBrush = new SolidBrush(Color.Black);
         SolidBrush groundBrush = new SolidBrush(Color.Brown);
 
+        SoundPlayer gamePlayer = new SoundPlayer(Properties.Resources.Quiet);
+        
+
+
 
 
         public GameScreen()
         {
             InitializeComponent();
             InitializeGameValues();
+            gamePlayer.PlayLooping();
+
         }
 
         public void InitializeGameValues()
@@ -53,14 +60,14 @@ namespace Epsilon
 
             heroSize = 32;
             heroX = this.Width / 2 - (heroSize / 2);
-            heroY = this.Height / 2 - (heroSize / 2); ;
+            heroY = 0;
             heroSpeed = 10;
 
 
             gravity = 8;
             ground1Y = 200;
-            ground1X = 0;
-            groundEnd1 = 325;
+            ground1X = -25;
+            groundEnd1 = 350;
         }
 
         private void GameScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -222,14 +229,12 @@ namespace Epsilon
             {
                 if (heroY > ground1Y && heroX > ground1X - heroSize && heroX < ground1X + groundEnd1 && facingR == true)
                 {
-                    heroX = ground1X - heroSize;
-                    heroY = heroY + jumpSpeed;
+                    heroX = ground1X - heroSize + 16;
                     rightArrowDown = false;
                 }
                 else if (heroY > ground1Y && heroX > ground1X - heroSize && heroX < ground1X + groundEnd1 && facingR == false)
                 {
-                    heroX = ground1X + groundEnd1;
-                    heroY = heroY + jumpSpeed;
+                    heroX = ground1X + groundEnd1 - 16;
                     leftArrowDown = false;
                 }
                 else if (heroY > ground1Y - heroSize)
@@ -258,6 +263,7 @@ namespace Epsilon
 
             Rectangle heroRec = new Rectangle(heroX, heroY, heroSize, heroSize);
             Rectangle groundRec = new Rectangle(ground1X, ground1Y, groundEnd1, ground1Y);
+
             if (facingR == true)
             {
                 if (downArrowDown == true)

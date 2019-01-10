@@ -217,5 +217,8 @@
   <ItemGroup>
     <None Include="Resources\walk L.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Quiet.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
